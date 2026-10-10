@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velo - Product Configurator</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Lottie -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo">Velo<span>.</span></div>
+
+        <nav>
+            <a href="#customize">Customize</a>
+            <a href="#api">API</a>
+            <a href="#advertisement">Ad</a>
+            <a href="#premium">Premium</a>
+        </nav>
+
+        <div class="status">
+            <span id="statusDot"></span>
+            <span id="userStatus">Free User</span>
+        </div>
+    </header>
+
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-text">
+            <p class="small-title">SMART PRODUCT STUDIO</p>
+            <h1>Design it.<br><span>Make it yours.</span></h1>
+            <p>
+                Customize your Velo smart bottle with your favorite
+                color, style and personal engraving.
+            </p>
+            <a href="#customize" class="hero-button">Start Customizing</a>
+        </div>
+
+        <div class="hero-shape">
+            <div class="circle circle-one"></div>
+            <div class="circle circle-two"></div>
+        </div>
+    </section>
+
+
+    <!-- PRODUCT INFORMATION -->
+    <section class="product-info" aria-label="Velo product information">
+        <div class="product-copy">
+            <p class="product-eyebrow">MADE FOR EVERYDAY HYDRATION</p>
+            <h2>Velo Smart Bottle</h2>
+            <p id="description" class="protected-description">
+                A reusable bottle designed to keep hydration simple throughout your day.
+                The Velo Smart Bottle pairs a durable, easy-carry design with a clear
+                hydration display, and can be personalized with your choice of color,
+                style and engraving.
+            </p>
+        </div>
+        <p class="product-price"><strong>$34.99</strong><span>USD</span></p>
+    </section>
+
+
+    <!-- CUSTOMIZER -->
+    <section id="customize" class="customizer">
+
+        <div class="section-heading">
+            <p>CUSTOMIZE YOUR PRODUCT</p>
+            <h2>Build your perfect bottle</h2>
+        </div>
+
+        <div class="configurator">
+
+            <!-- PRODUCT PREVIEW -->
+            <div class="preview-area">
+                <div class="preview-label">LIVE PREVIEW</div>
+
+                <div class="product-card" id="productCard" draggable="true">
+                    <div class="shine"></div>
+
+                    <!-- SVG PRODUCT -->
+                    <svg class="bottle-svg" id="bottle" viewBox="0 0 220 430">
+                        <rect x="70" y="20" width="80" height="45" rx="12" class="bottle-cap"/>
+                        <rect x="55" y="55" width="110" height="320" rx="35" class="bottle-body"/>
+                        <rect x="75" y="120" width="70" height="100" rx="15" class="bottle-screen"/>
+                        <circle cx="110" cy="160" r="20" class="screen-circle"/>
+                        <text x="110" y="210" text-anchor="middle" class="bottle-text" id="svgEngraving">VELO</text>
+                    </svg>
+
+                    <div class="engraving-display" id="engravingDisplay">YOUR NAME</div>
+                    <div class="product-reflection"></div>
+                </div>
+
+                <p class="drag-info">Drag the product into the cart</p>
+            </div>
+
+
+            <!-- CONTROLS -->
+            <div class="controls">
+
+                <div class="control-box">
+                    <div class="control-title"><span>01</span> Product Color</div>
+                    <div class="color-options">
+                        <button class="color-button active black" data-color="black"></button>
+                        <button class="color-button blue" data-color="blue"></button>
+                        <button class="color-button pink" data-color="pink"></button>
+                        <button class="color-button green" data-color="green"></button>
+                    </div>
+                </div>
+
+                <div class="control-box">
+                    <div class="control-title"><span>02</span> Product Variant</div>
+                    <div class="variant-options">
+                        <button class="variant active" data-variant="classic">
+                            <strong>Classic</strong>
+                            <small>Everyday style</small>
+                        </button>
+                        <button class="variant" data-variant="sport">
+                            <strong>Sport</strong>
+                            <small>Active lifestyle</small>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="control-box">
+                    <div class="control-title"><span>03</span> Custom Engraving</div>
+                    <input type="text" id="engravingInput" maxlength="15" placeholder="Type your name...">
+                    <div class="input-bottom">
+                        <span>Make it personal</span>
+                        <span id="characterCount">0 / 15</span>
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <button class="reset-button" id="resetButton">Reset</button>
+                    <button class="cart-button" id="addButton">Add to Cart</button>
+                </div>
+
+                <p id="message" class="message"></p>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- CART -->
+    <section class="cart-section">
+        <div class="drop-cart" id="dropCart">
+            <div class="cart-icon">🛒</div>
+            <div>
+                <h3>Drop your product here</h3>
+                <p>Drag the bottle into this area</p>
+            </div>
+            <div class="cart-count">
+                <span id="cartCount">0</span> items
+            </div>
+        </div>
+    </section>
+
+
+    <!-- API SECTION (Q2 + Q3) -->
+    <section id="api" class="api-section">
+        <div class="section-heading">
+            <p>LIVE DATA</p>
+            <h2>Public API &amp; Express Backend</h2>
+        </div>
+
+        <div class="api-grid">
+
+            <div class="api-box">
+                <h3>Q2: Public Product API</h3>
+                <p>jQuery AJAX GET request to DummyJSON</p>
+                <button class="api-btn" id="loadPublicProduct">Load Random Product</button>
+                <div class="api-output" id="publicProduct"></div>
+            </div>
+
+            <div class="api-box">
+                <h3>Q3: Express Backend</h3>
+                <p>GET products / POST your current configuration</p>
+                <button class="api-btn" id="loadLocalProducts">GET Products</button>
+                <button class="api-btn" id="submitConfig">POST My Configuration</button>
+                <div class="api-output" id="localProducts"></div>
+                <div class="api-output" id="serverResponse"></div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- VIDEO -->
+    <section id="advertisement" class="video-section">
+
+        <div class="section-heading light">
+            <p>VELO PRESENTS</p>
+            <h2>Hydration that moves <span>with your day.</span></h2>
+        </div>
+
+        <div class="video-container">
+            <video
+                controls
+                playsinline
+                preload="metadata"
+                aria-label="A man enjoying a refreshing drink from a water bottle outdoors"
+                poster="https://images.pexels.com/videos/16854161/pexels-photo-16854161.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200">
+
+                <source src="https://videos.pexels.com/video-files/16854161/16854161-hd_1920_1080_30fps.mp4" type="video/mp4">
+                Your browser does not support video.
+            </video>
+
+            <p class="video-credit">
+                Stock footage by
+                <a href="https://www.pexels.com/video/a-man-drinking-water-from-a-bottle-in-a-field-16854161/" target="_blank" rel="noopener noreferrer">
+                    Vladimir Vysotskiy on Pexels
+                </a>
+            </p>
+        </div>
+
+    </section>
+
+
+    <!-- PREMIUM -->
+    <section id="premium" class="premium-section">
+
+        <div class="section-heading">
+            <p>VELO PLUS</p>
+            <h2>Unlock your <span>creative side.</span></h2>
+            <p class="section-description">
+                Get access to exclusive colors, premium themes
+                and advanced engraving styles.
+            </p>
+        </div>
+
+        <div class="premium-card">
+            <div class="premium-info">
+                <div class="premium-badge">✦ PREMIUM</div>
+                <h2>Velo Plus</h2>
+                <div class="price">$9.99 <span>/ one time</span></div>
+
+                <ul>
+                    <li>✓ Premium product colors</li>
+                    <li>✓ Exclusive gold theme</li>
+                    <li>✓ Advanced engraving</li>
+                    <li>✓ Premium visual effects</li>
+                </ul>
+
+                <button class="premium-button" id="upgradeButton">Unlock Premium</button>
+            </div>
+
+            <div class="premium-animation">
+                <lottie-player
+                    src="https://assets10.lottiefiles.com/packages/lf20_jbrw3hcz.json"
+                    background="transparent" speed="1" loop autoplay>
+                </lottie-player>
+            </div>
+        </div>
+
+        <!-- PREMIUM CONTROLS -->
+        <div class="premium-controls">
+            <h3>Premium Customization</h3>
+            <p>These options are locked for free users.</p>
+
+            <div class="premium-options">
+                <button class="premium-option locked" data-premium="gold">
+                    <span>🥇</span> Gold Theme <b>LOCKED</b>
+                </button>
+                <button class="premium-option locked" data-premium="purple">
+                    <span>💜</span> Royal Purple <b>LOCKED</b>
+                </button>
+                <button class="premium-option locked" data-premium="glow">
+                    <span>✨</span> Glow Effect <b>LOCKED</b>
+                </button>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- PAYMENT MODAL -->
+    <div class="modal" id="paymentModal">
+
+        <div class="payment-box">
+
+            <button class="close-button" id="closeModal">×</button>
+
+            <div class="payment-heading">
+                <div class="premium-badge">✦ VELO PLUS</div>
+                <h2>Upgrade to Premium</h2>
+                <p>Unlock all premium customization features.</p>
+            </div>
+
+            <div class="payment-price">$9.99</div>
+
+            <form id="paymentForm">
+
+                <label>Cardholder Name</label>
+                <input type="text" id="cardName" placeholder="John Smith">
+                <small class="error" id="cardNameError"></small>
+
+                <label>Card Number</label>
+                <input type="text" id="cardNumber" maxlength="19" placeholder="1234 5678 9012 3456">
+                <small class="error" id="cardNumberError"></small>
+
+                <div class="payment-row">
+                    <div>
+                        <label>Expiry</label>
+                        <input type="text" id="expiry" maxlength="5" placeholder="MM/YY">
+                        <small class="error" id="expiryError"></small>
+                    </div>
+
+                    <div>
+                        <label>CVV</label>
+                        <input type="password" id="cvv" maxlength="3" placeholder="123">
+                        <small class="error" id="cvvError"></small>
+                    </div>
+                </div>
+
+                <button type="submit" class="pay-button">Pay $9.99</button>
+
+                <p class="secure-text">
+                    🔒 Demo payment — no real card information is stored.
+                </p>
+
+            </form>
+
+            <div class="payment-success" id="paymentSuccess">
+                <lottie-player
+                    src="https://assets1.lottiefiles.com/packages/lf20_isdnzeop.json"
+                    background="transparent" speed="1"
+                    style="width:180px;height:180px" autoplay>
+                </lottie-player>
+
+                <h2>Premium Activated!</h2>
+                <p>Your premium features are now unlocked.</p>
+                <button class="premium-button" id="successClose">Continue</button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="logo">Velo<span>.</span></div>
+        <p>Interactive Product Configurator</p>
+        <p>FSD Lab Project</p>
+    </footer>
+
+
+    <!-- jQuery must load BEFORE script.js -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
